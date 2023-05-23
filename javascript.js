@@ -13,12 +13,12 @@ function getComputerChoice() {
     }
     }
 
-
-
 function playRound() {
     let computerSelection = getComputerChoice();
-    let playerSelection = prompt("Choose your game option:(rock,scissors,paper)");
-    playerSelection = playerSelection.toLowerCase();
+    let playerSelection = prompt("Choose your game option:(rock,scissors,paper)").toLowerCase();
+    while (["paper","rock","scissors"].indexOf(playerSelection) == -1) {
+        playerSelection = prompt("Invalid input! Please choose again:");
+    }
     if (playerSelection == "rock" && computerSelection == "scissors") {
         return ("You win! Rock beats scissors!")
     }
@@ -37,10 +37,7 @@ function playRound() {
     else if (playerSelection == "paper" && computerSelection == "scissors") {
         return ("You lose! Scissors beats Paper!");
     }
-    //else if (playerSelection != "paper" || playerSelection != "rock" || playerSelection != "scissors") {
-    //    console.log ("Invalid input!");
-    //    playRound();
-    //}
+    
     else { 
         return ("Draw!");
     }
@@ -62,7 +59,7 @@ function game() {
             playerCounter++;
             computerCounter++;
         }
-        console.log("playerCounter = "+ playerCounter);
+        console.log("playerCounter = " + playerCounter);
         console.log("computerCounter = " + computerCounter);
     }
     if (playerCounter > computerCounter) {
