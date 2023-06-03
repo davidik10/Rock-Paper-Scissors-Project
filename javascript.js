@@ -1,24 +1,17 @@
-
+const buttons = document.querySelectorAll("button");
+const div = document.querySelector("div");
+let playerCounter = 0;
+let computerCounter = 0;
 
 function getComputerChoice() {
     let x = Math.floor(Math.random() * 3);
-    if (x==0) {
-        return ("rock");
-    }
-    else if (x==1) {
-        return ("scissors");
-    }
-    else {
-        return ("paper");
-    }
-    }
+    if (x==0) return ("rock");
+    else if (x==1) return ("scissors");
+    else return ("paper");
+}
 
-function playRound() {
+function playRound(playerSelection) {
     let computerSelection = getComputerChoice();
-    let playerSelection = prompt("Choose your game option:(rock,scissors,paper)").toLowerCase();
-    while (["paper","rock","scissors"].indexOf(playerSelection) == -1) {
-        playerSelection = prompt("Invalid input! Please choose again:");
-    }
     if (playerSelection == "rock" && computerSelection == "scissors") {
         return ("You win! Rock beats scissors!")
     }
@@ -43,35 +36,28 @@ function playRound() {
     }
 }
 
-function game() {
-    let playerCounter = 0;
-    let computerCounter = 0;
-    for (let i=0; i<5; i++) {
-        let x = playRound();
-        console.log(x);
-        if (x.includes('win')) {
-            playerCounter++;
-        }
-        else if (x.includes("lose")) {
-            computerCounter++;
-        }
-        else {
-            playerCounter++;
-            computerCounter++;
-        }
-        console.log("playerCounter = " + playerCounter);
-        console.log("computerCounter = " + computerCounter);
+function click(e) {
+    const playerSelection = e.target.className;
+    const result = (playRound(playerSelection));
+    div.textContent = `\t${result}`;
+    if (result.includes('win')) playerCounter++;
+    else if (result.includes("lose")) computerCounter++;
+    alert (`Score: ${playerCounter}(you) - ${computerCounter}(computer)`);
+    if (playerCounter === 5) {
+        alert ("You won the game!");
+        playerCounter = 0;
+        computerCounter = 0;
     }
-    if (playerCounter > computerCounter) {
-        return ("You won the game!");
-    }
-    else if (playerCounter < computerCounter) {
-        return ("You lost the game!");
-    }
-    else {
-        return ("Draw!");
-    }
+    else if (computerCounter === 5) {
+        alert ("You lost the game!");
+        playerCounter = 0;
+        computerCounter = 0;
+    } 
 }
 
-console.log(game(playRound));
+buttons.forEach (btn => btn.addEventListener('click', click));
+            
+
+
+
 
